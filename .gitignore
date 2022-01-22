@@ -1,0 +1,12 @@
+# non code files
+
+*.docx
+*.zip
+*.pdf
+
+#folders
+documentation
+cricket_dataset
+
+# other files
+.vscode
