@@ -10,3 +10,6 @@ cricket_dataset
 
 # other files
 .vscode
+.ipynb_checkpoints
+
+a.py
