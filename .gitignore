@@ -3,6 +3,9 @@
 *.docx
 *.zip
 *.pdf
+*.png
+*.svg
+*.xlsx
 
 #folders
 documentation
