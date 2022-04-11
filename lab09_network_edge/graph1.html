@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 800px;
+            height: 600px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "University of Crete", "label": "University of Crete", "shape": "dot"}, {"color": "rgba(33, 181, 18, 0.3)", "font": "20 arial black", "id": "Greece", "label": "Greece", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "University of Milan", "label": "University of Milan", "shape": "dot"}, {"color": "rgba(203, 116, 137, 0.6)", "font": "20 arial black", "id": "Italy", "label": "Italy", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "University of Milan-Bicocca", "label": "University of Milan-Bicocca", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "University of Trieste", "label": "University of Trieste", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "University of Bologna", "label": "University of Bologna", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "University of Trento", "label": "University of Trento", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "Leiden University", "label": "Leiden University", "shape": "dot"}, {"color": "rgba(232, 181, 254, 0.9)", "font": "20 arial black", "id": "Netherlands", "label": "Netherlands", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "Utrecht University", "label": "Utrecht University", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "Wageningen University and Research Center", "label": "Wageningen University and Research Center", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "Erasmus University Rotterdam", "label": "Erasmus University Rotterdam", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "Delft University of Technology", "label": "Delft University of Technology", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "University of Cape Town", "label": "University of Cape Town", "shape": "dot"}, {"color": "rgba(70, 33, 72, 0.6)", "font": "20 arial black", "id": "South Africa", "label": "South Africa", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "University of the Witwatersrand", "label": "University of the Witwatersrand", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "Stellenbosch University", "label": "Stellenbosch University", "shape": "dot"}, {"color": "rgba(107, 135, 227, .5)", "font": "12 arial black", "id": "University of KwaZulu-Natal", "label": "University of KwaZulu-Natal", "shape": "dot"}]);
+        edges = new vis.DataSet([{"color": "rgba(210, 80, 207, 1.0)", "from": "University of Crete", "to": "Greece", "value": 44.4}, {"color": "rgba(196, 201, 64, 0.2)", "from": "University of Milan", "to": "Italy", "value": 35.7}, {"color": "rgba(92, 147, 246, 0.2)", "from": "University of Milan-Bicocca", "to": "Italy", "value": 36.2}, {"color": "rgba(195, 133, 200, 0.8)", "from": "University of Trieste", "to": "Italy", "value": 48.5}, {"color": "rgba(52, 171, 180, 0.2)", "from": "University of Bologna", "to": "Italy", "value": 37.6}, {"color": "rgba(227, 93, 99, 0.3)", "from": "University of Trento", "to": "Italy", "value": 51.2}, {"color": "rgba(192, 62, 104, 0.6)", "from": "Leiden University", "to": "Netherlands", "value": 54.8}, {"color": "rgba(220, 82, 59, 1.0)", "from": "Utrecht University", "to": "Netherlands", "value": 47.3}, {"color": "rgba(218, 208, 87, 0.8)", "from": "Wageningen University and Research Center", "to": "Netherlands", "value": 79.2}, {"color": "rgba(236, 164, 152, 0.2)", "from": "Erasmus University Rotterdam", "to": "Netherlands", "value": 62.8}, {"color": "rgba(240, 190, 201, 0.4)", "from": "Delft University of Technology", "to": "Netherlands", "value": 67.7}, {"color": "rgba(115, 2, 112, 0.8)", "from": "University of Cape Town", "to": "South Africa", "value": 75.1}, {"color": "rgba(185, 92, 238, 0.3)", "from": "University of the Witwatersrand", "to": "South Africa", "value": 65.1}, {"color": "rgba(94, 173, 79, 0.5)", "from": "Stellenbosch University", "to": "South Africa", "value": 47.8}, {"color": "rgba(230, 17, 57, 0.8)", "from": "University of KwaZulu-Natal", "to": "South Africa", "value": 56.2}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
